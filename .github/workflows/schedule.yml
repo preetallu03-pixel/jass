@@ -28,7 +28,7 @@ jobs:
           ICBC_LAST_NAME: ${{ secrets.ICBC_LAST_NAME }}
           ICBC_LICENSE_NUMBER: ${{ secrets.ICBC_LICENSE_NUMBER }}
           ICBC_KEYWORD: ${{ secrets.ICBC_KEYWORD }}
-        run: python your_script_name.py
+        run: main.py
 
       - name: Commit and push database changes
         run: |
