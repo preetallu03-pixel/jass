@@ -2,7 +2,7 @@ name: ICBC Monitor Schedule
 
 on:
   schedule:
-    - cron: '*/25 * * * *' # Executes every 25 minutes
+    - cron: '*/20 * * * *' # Executes every 20 minutes
   workflow_dispatch:
 
 env:
