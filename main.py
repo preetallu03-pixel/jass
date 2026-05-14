@@ -3,6 +3,7 @@ import requests
 import sqlite3
 from datetime import datetime
 from pathlib import Path
+import random
 
 # --- CONFIGURATION (via Environment Variables) ---
 LAST_NAME = os.getenv("ICBC_LAST_NAME")
@@ -15,7 +16,16 @@ EXAM_TYPE = "7-R-1"
 EXAM_DATE = "2026-05-25"
 DAYS_OF_WEEK = "[0,1,2,3,4,5,6]"
 PARTS_OF_DAY = "[0,1]"
-USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+import random
+
+USER_AGENTS = [
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
+    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36",
+    "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:125.0) Gecko/20100101 Firefox/125.0"
+]
+
+USER_AGENT = random.choice(USER_AGENTS)
 
 # --- NOTIFICATION & PERSISTENCE ---
 NTFY_TOPIC = "jass-icbc"
@@ -135,7 +145,8 @@ def main():
     if not token:
         save_run(polled_at, [], False)
         return
-
+        
+    time.sleep(random.uniform(0.5, 2.5))
     appointments = fetch_appointments(token)
     save_run(polled_at, appointments or [], appointments is not None)
 
