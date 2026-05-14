@@ -146,7 +146,6 @@ def main():
         save_run(polled_at, [], False)
         return
         
-    time.sleep(random.uniform(0.5, 2.5))
     appointments = fetch_appointments(token)
     save_run(polled_at, appointments or [], appointments is not None)
 
