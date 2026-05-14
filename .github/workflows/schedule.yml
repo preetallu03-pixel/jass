@@ -2,14 +2,17 @@ name: ICBC Monitor Schedule
 
 on:
   schedule:
-    - cron: '*/25 * * * *' # Runs every 20 minutes
-  workflow_dispatch: # Allows manual trigger
+    - cron: '*/25 * * * *' # Executes every 25 minutes
+  workflow_dispatch:
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
 jobs:
   run-monitor:
     runs-on: ubuntu-latest
     permissions:
-      contents: write # Required to save the .db file back to the repo
+      contents: write 
     
     steps:
       - name: Checkout code
@@ -28,7 +31,7 @@ jobs:
           ICBC_LAST_NAME: ${{ secrets.ICBC_LAST_NAME }}
           ICBC_LICENSE_NUMBER: ${{ secrets.ICBC_LICENSE_NUMBER }}
           ICBC_KEYWORD: ${{ secrets.ICBC_KEYWORD }}
-        run: main.py
+        run: python main.py # Corrected execution
 
       - name: Commit and push database changes
         run: |
